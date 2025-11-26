@@ -3,8 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Formularios;
-import javax.swing.ImageIcon;
-
+import Controlador.controladorLogin;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -13,6 +17,9 @@ import javax.swing.ImageIcon;
 public class Login extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
+    
+    
+    private final controladorLogin controlador;
 
     /**
      * Creates new form Login
@@ -20,8 +27,67 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        configurarPlaceholders();
+        configurarIconoVentana();
+        controlador = new controladorLogin();
+
+    }
+    
+        /**
+     * Configura el icono personalizado que se muestra en la barra de título.
+     */
+    private void configurarIconoVentana() {
+        Image icon = Toolkit.getDefaultToolkit()
+                .getImage(getClass().getResource("/login-usuarios.png"));
+        setIconImage(icon);
+    }
+    
+    private void configurarPlaceholders() {
+        aplicarPlaceholder(txtNombreUsuario, "Ingrese su nombre de usuario aquí");
+        aplicarPlaceholder(txtContraseña, "Ingrese su contraseña aquí");
     }
 
+/**
+     * Configura un texto de placeholder en un JTextField.
+     *
+     * @param textField  campo de texto a configurar
+     * @param placeholder texto que se mostrará como marcador
+     */
+    private void aplicarPlaceholder(JTextField textField, String placeholder) {
+        textField.setText(placeholder);
+        textField.setForeground(new Color(150, 150, 150));
+
+        textField.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (textField.getText().equals(placeholder)) {
+                    textField.setText("");
+                    textField.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (textField.getText().isEmpty()) {
+                    textField.setText(placeholder);
+                    textField.setForeground(new Color(150, 150, 150));
+                }
+            }
+        });
+    }
+
+    // Devuelve el contenido de un JTextField, sustituyendo el placeholder por cadena vacía
+    private String obtenerTextoSinPlaceholder(JTextField textField, String placeholder) {
+        String text = textField.getText();
+        return text.equals(placeholder) ? "" : text;
+    }
+
+    // Devuelve el contenido de un JPasswordField, sustituyendo el placeholder por cadena vacía
+    private String obtenerTextoSinPlaceholder(JPasswordField passwordField, String placeholder) {
+        String text = new String(passwordField.getPassword());
+        return text.equals(placeholder) ? "" : text;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -167,7 +233,32 @@ public class Login extends javax.swing.JFrame {
 
     
     private void btnIniciarSesiónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesiónActionPerformed
-        // TODO add your handling code here:
+        String username = obtenerTextoSinPlaceholder(txtNombreUsuario, "Ingrese su nombre de usuario aquí");
+        String password = obtenerTextoSinPlaceholder(txtContraseña, "Ingrese su contraseña aquí");
+
+        boolean autenticado = controlador.iniciarSesion(username, password);
+
+        if (autenticado) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Inicio de sesión exitoso.",
+                    "Información",
+                    javax.swing.JOptionPane.INFORMATION_MESSAGE
+            );
+
+            Usuarios vistaUsuarios = new Usuarios();
+            vistaUsuarios.setVisible(true);
+            vistaUsuarios.setLocationRelativeTo(null);
+
+            dispose();
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Credenciales inválidas o datos incompletos.",
+                    "Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+        }
     }//GEN-LAST:event_btnIniciarSesiónActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
@@ -188,13 +279,9 @@ public class Login extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (javax.swing.UIManager.LookAndFeelInfo info :
+                    javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
@@ -203,9 +290,8 @@ public class Login extends javax.swing.JFrame {
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
         java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
     }
 

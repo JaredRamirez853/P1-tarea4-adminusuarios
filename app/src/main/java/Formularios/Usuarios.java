@@ -28,21 +28,175 @@ public class Usuarios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        PanelBanner = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btnRegistrarse3 = new javax.swing.JButton();
+        PanelFondo = new javax.swing.JPanel();
+        PanelBanner5 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaRegistros = new javax.swing.JTable();
+        btnEliminar = new javax.swing.JButton();
+        btnCrear = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
+
+        PanelBanner.setBackground(new java.awt.Color(251, 54, 64));
+
+        jLabel1.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Actualizar usuario");
+
+        javax.swing.GroupLayout PanelBannerLayout = new javax.swing.GroupLayout(PanelBanner);
+        PanelBanner.setLayout(PanelBannerLayout);
+        PanelBannerLayout.setHorizontalGroup(
+            PanelBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        PanelBannerLayout.setVerticalGroup(
+            PanelBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelBannerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(14, 14, 14))
+        );
+
+        btnRegistrarse3.setBackground(new java.awt.Color(234, 231, 231));
+        btnRegistrarse3.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
+        btnRegistrarse3.setText("Eliminar usuario");
+        btnRegistrarse3.addActionListener(this::btnRegistrarse3ActionPerformed);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        PanelFondo.setBackground(new java.awt.Color(255, 255, 255));
+
+        PanelBanner5.setBackground(new java.awt.Color(251, 54, 64));
+
+        jLabel6.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Gestión de usuarios");
+
+        javax.swing.GroupLayout PanelBanner5Layout = new javax.swing.GroupLayout(PanelBanner5);
+        PanelBanner5.setLayout(PanelBanner5Layout);
+        PanelBanner5Layout.setHorizontalGroup(
+            PanelBanner5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 855, Short.MAX_VALUE)
+        );
+        PanelBanner5Layout.setVerticalGroup(
+            PanelBanner5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelBanner5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(14, 14, 14))
+        );
+
+        TablaRegistros.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        TablaRegistros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Apellido", "Correo", "Teléfono", "Usuario"
+            }
+        ));
+        jScrollPane1.setViewportView(TablaRegistros);
+
+        btnEliminar.setBackground(new java.awt.Color(234, 231, 231));
+        btnEliminar.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
+        btnEliminar.setText("Eliminar usuario");
+        btnEliminar.addActionListener(this::btnEliminarActionPerformed);
+
+        btnCrear.setBackground(new java.awt.Color(234, 231, 231));
+        btnCrear.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
+        btnCrear.setText("Crear usuario");
+        btnCrear.addActionListener(this::btnCrearActionPerformed);
+
+        btnActualizar.setBackground(new java.awt.Color(234, 231, 231));
+        btnActualizar.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
+        btnActualizar.setText("Actualizar usuario");
+        btnActualizar.addActionListener(this::btnActualizarActionPerformed);
+
+        btnCerrar.setBackground(new java.awt.Color(234, 231, 231));
+        btnCerrar.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
+        btnCerrar.setText("Cerrar sesión");
+        btnCerrar.addActionListener(this::btnCerrarActionPerformed);
+
+        javax.swing.GroupLayout PanelFondoLayout = new javax.swing.GroupLayout(PanelFondo);
+        PanelFondo.setLayout(PanelFondoLayout);
+        PanelFondoLayout.setHorizontalGroup(
+            PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PanelBanner5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(PanelFondoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addGap(17, 17, 17))
+                    .addGroup(PanelFondoLayout.createSequentialGroup()
+                        .addGroup(PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelFondoLayout.createSequentialGroup()
+                                .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        PanelFondoLayout.setVerticalGroup(
+            PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelFondoLayout.createSequentialGroup()
+                .addComponent(PanelBanner5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnCrear))
+                .addGap(18, 18, 18)
+                .addComponent(btnCerrar)
+                .addGap(13, 13, 13))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnRegistrarse3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarse3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegistrarse3ActionPerformed
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +224,25 @@ public class Usuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelBanner;
+    private javax.swing.JPanel PanelBanner1;
+    private javax.swing.JPanel PanelBanner2;
+    private javax.swing.JPanel PanelBanner3;
+    private javax.swing.JPanel PanelBanner4;
+    private javax.swing.JPanel PanelBanner5;
+    private javax.swing.JPanel PanelFondo;
+    private javax.swing.JTable TablaRegistros;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnRegistrarse3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
