@@ -164,6 +164,7 @@ public class Registrar extends javax.swing.JFrame {
         btnRegistrarse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         panelFondo.setBackground(new java.awt.Color(255, 255, 255));
 
