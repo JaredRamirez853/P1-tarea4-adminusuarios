@@ -76,6 +76,18 @@ public class controladorUsuarios {
                 nuevaClaveOpcional
         );
     }
+    
+    public boolean actualizarUsuario(String usernameOriginal, Usuario datosNuevos) {
+    return servicio.actualizarUsuario(
+            usernameOriginal,
+            datosNuevos.getNombre(),
+            datosNuevos.getApellido(),
+            datosNuevos.getCorreo(),
+            datosNuevos.getTelefono(),
+            datosNuevos.getNombreUsuario(),
+            datosNuevos.getClaveAcceso()
+    );
+}
 
     /**
      * Elimina un usuario del sistema.

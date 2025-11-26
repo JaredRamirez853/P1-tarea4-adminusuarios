@@ -4,6 +4,26 @@
  */
 package Formularios;
 
+import Controlador.controladorUsuarios;
+import PersonaYUsuario.Usuario;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author ramir
@@ -11,12 +31,18 @@ package Formularios;
 public class Usuarios extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Usuarios.class.getName());
+    private final controladorUsuarios controlador = new controladorUsuarios();
+
 
     /**
      * Creates new form Usuarios
      */
     public Usuarios() {
         initComponents();
+        configurarTabla();
+        cargarUsuariosEnTabla();
+        configurarIconoVentana();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -179,15 +205,183 @@ public class Usuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+              int fila = TablaRegistros.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccione un usuario para eliminar.",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String username = TablaRegistros.getValueAt(fila, 4).toString();
+
+        int opcion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Seguro que desea eliminar el usuario \"" + username + "\"?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (opcion != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try {
+            boolean ok = controlador.eliminarUsuario(username);
+            if (ok) {
+                JOptionPane.showMessageDialog(this,
+                        "Usuario eliminado correctamente.",
+                        "Información",
+                        JOptionPane.INFORMATION_MESSAGE);
+                cargarUsuariosEnTabla();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo eliminar el usuario.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, "Error al eliminar usuario", ex);
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        // TODO add your handling code here:
+               // Solicitar los datos mediante diálogos simples.
+        String nombre = JOptionPane.showInputDialog(this, "Nombre:");
+        if (nombre == null || nombre.isBlank()) return;
+
+        String apellido = JOptionPane.showInputDialog(this, "Apellido:");
+        if (apellido == null || apellido.isBlank()) return;
+
+        String correo = JOptionPane.showInputDialog(this, "Correo:");
+        if (correo == null || correo.isBlank()) return;
+
+        String telefono = JOptionPane.showInputDialog(this, "Teléfono:");
+        if (telefono == null || telefono.isBlank()) return;
+
+        String nombreUsuario = JOptionPane.showInputDialog(this, "Nombre de usuario:");
+        if (nombreUsuario == null || nombreUsuario.isBlank()) return;
+
+        String clave = JOptionPane.showInputDialog(this, "Contraseña:");
+        if (clave == null || clave.isBlank()) return;
+
+        String confirmar = JOptionPane.showInputDialog(this, "Confirmar contraseña:");
+        if (confirmar == null || confirmar.isBlank()) return;
+
+        try {
+            boolean ok = controlador.crearUsuario(
+                    nombre,
+                    apellido,
+                    correo,
+                    telefono,
+                    nombreUsuario,
+                    clave,
+                    confirmar
+            );
+
+            if (ok) {
+                JOptionPane.showMessageDialog(this,
+                        "Usuario registrado correctamente.",
+                        "Información",
+                        JOptionPane.INFORMATION_MESSAGE);
+                cargarUsuariosEnTabla();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo completar el registro. Verifique los datos.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, "Error al registrar usuario", ex);
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
+                int fila = TablaRegistros.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccione un usuario para actualizar.",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Usuario original (para localizar el registro en BD)
+        String usernameOriginal = TablaRegistros.getValueAt(fila, 4).toString();
+
+        try {
+            Usuario actual = controlador.obtenerUsuario(usernameOriginal);
+            if (actual == null) {
+                JOptionPane.showMessageDialog(this,
+                        "El usuario seleccionado ya no existe.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                cargarUsuariosEnTabla();
+                return;
+            }
+
+            // Se muestran los valores actuales como propuesta
+            String nombre = JOptionPane.showInputDialog(this, "Nombre:", actual.getNombre());
+            if (nombre == null || nombre.isBlank()) return;
+
+            String apellido = JOptionPane.showInputDialog(this, "Apellido:", actual.getApellido());
+            if (apellido == null || apellido.isBlank()) return;
+
+            String correo = JOptionPane.showInputDialog(this, "Correo:", actual.getCorreo());
+            if (correo == null || correo.isBlank()) return;
+
+            String telefono = JOptionPane.showInputDialog(this, "Teléfono:", actual.getTelefono());
+            if (telefono == null || telefono.isBlank()) return;
+
+            String nombreUsuario = JOptionPane.showInputDialog(this, "Nombre de usuario:", actual.getNombreUsuario());
+            if (nombreUsuario == null || nombreUsuario.isBlank()) return;
+
+            String nuevaClave = JOptionPane.showInputDialog(this,
+                    "Nueva contraseña (dejar vacío para mantener la actual):");
+
+            // Construimos un objeto Usuario con los datos modificados
+            Usuario modific = new Usuario(
+                    nombre,
+                    apellido,
+                    correo,
+                    telefono,
+                    nombreUsuario,
+                    (nuevaClave == null || nuevaClave.isBlank())
+                            ? actual.getClaveAcceso()
+                            : nuevaClave
+            );
+
+            boolean ok = controlador.actualizarUsuario(usernameOriginal, modific);
+
+            if (ok) {
+                JOptionPane.showMessageDialog(this,
+                        "Usuario actualizado correctamente.",
+                        "Información",
+                        JOptionPane.INFORMATION_MESSAGE);
+                cargarUsuariosEnTabla();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo actualizar el usuario.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, "Error al actualizar usuario", ex);
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnRegistrarse3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarse3ActionPerformed
@@ -195,8 +389,98 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarse3ActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        // TODO add your handling code here:
+        Login login = new Login();
+        login.setLocationRelativeTo(this);
+        login.setVisible(true);
+
+        dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void configurarIconoVentana() {
+        try {
+            Image icono = Toolkit.getDefaultToolkit()
+                    .getImage(getClass().getResource("/login-usuarios.png"));
+            setIconImage(icono);
+        } catch (Exception e) {
+            // Si el recurso no existe, simplemente se omite sin interrumpir la aplicación.
+            logger.log(Level.WARNING, "No se pudo cargar el icono de la ventana.", e);
+        }
+    }
+    
+     private void configurarTabla() {
+        TablaRegistros.setRowHeight(26);
+        TablaRegistros.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        TablaRegistros.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
+        TablaRegistros.setShowGrid(false);
+        TablaRegistros.setIntercellSpacing(new Dimension(0, 0));
+
+        TablaRegistros.getTableHeader().setBackground(new Color(48, 63, 159));
+        TablaRegistros.getTableHeader().setForeground(Color.WHITE);
+
+        // Las celdas no se editan directamente desde la tabla
+        TablaRegistros.setDefaultEditor(Object.class, null);
+
+        // Estilo de filas alternadas y selección
+        TablaRegistros.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                    JTable table, Object value, boolean isSelected,
+                    boolean hasFocus, int row, int column) {
+
+                Component c = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+
+                if (!isSelected) {
+                    c.setBackground(row % 2 == 0
+                            ? new Color(245, 245, 245)
+                            : Color.WHITE);
+                    c.setForeground(Color.BLACK);
+                } else {
+                    c.setBackground(new Color(66, 133, 244));
+                    c.setForeground(Color.WHITE);
+                }
+
+                return c;
+            }
+        });
+    }
+     
+    
+    /** Recupera los usuarios desde la capa de negocio y los muestra en la tabla. */
+    private void cargarUsuariosEnTabla() {
+        try {
+            DefaultTableModel modelo = (DefaultTableModel) TablaRegistros.getModel();
+            modelo.setRowCount(0); // limpia filas
+
+            List<Usuario> usuarios = controlador.obtenerTodos();
+            for (Usuario u : usuarios) {
+                Object[] fila = {
+                    u.getNombre(),
+                    u.getApellido(),
+                    u.getCorreo(),
+                    u.getTelefono(),
+                    u.getNombreUsuario()
+                };
+                modelo.addRow(fila);
+            }
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, "Error al cargar usuarios", ex);
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No se pudieron cargar los usuarios.\nDetalle: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+    
+
+
+
+
+
+
+
 
     /**
      * @param args the command line arguments
