@@ -160,8 +160,8 @@ public class serviciosUsuario {
         // Actualizar datos en el objeto
         existente.setNombre(nombre);
         existente.setApellido(apellido);
-        existente.setCorreoElectronico(correo);
-        existente.setNumeroTelefono(telefono);
+        existente.setCorreo(correo);
+        existente.setTelefono(telefono);
         existente.setNombreUsuario(nuevoNombreUsuario);
 
         // Si se envió nueva contraseña, se actualiza

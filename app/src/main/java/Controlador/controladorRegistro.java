@@ -1,56 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Controlador;
+
 import serviciosPrincipales.serviciosUsuario;
 
-
 /**
- *
- * @author ramir
+ * Controlador encargado del proceso de registro de usuarios.
  */
 public class controladorRegistro {
-    // Servicio que contiene la lógica de negocio relacionada con usuarios
-    private final serviciosUsuario servicioUsuarios;
 
-    /**
-     * Constructor: inicializa la instancia del servicio.
-     */
+    private final serviciosUsuario servicio;
+
     public controladorRegistro() {
-        this.servicioUsuarios = new serviciosUsuario();
+        this.servicio = new serviciosUsuario();
     }
 
     /**
-     * Intenta registrar un nuevo usuario con los datos proporcionados.
-     *
-     * @param nombre          Nombre del usuario
-     * @param apellido        Apellido del usuario
-     * @param correo          Correo electrónico
-     * @param telefono        Número de teléfono
-     * @param nombreUsuario   Username del usuario
-     * @param clave           Contraseña
-     * @param confirmarClave  Confirmación de la contraseña
-     * @return true si el registro fue exitoso, false si ocurrió algún problema
+     * Recibe los datos del formulario, los envía al servicio y devuelve true
+     * si el registro fue exitoso, o false si falló.
      */
-    public boolean registrar(String nombre,
-                             String apellido,
-                             String correo,
-                             String telefono,
-                             String nombreUsuario,
-                             String clave,
-                             String confirmarClave) {
+    public boolean registrarUsuario(
+            String nombre,
+            String apellido,
+            String correo,
+            String telefono,
+            String nombreUsuario,
+            String clave,
+            String confirmarClave) {
 
-        // Delegamos toda la validación y acceso a BD al servicio
-        return servicioUsuarios.registrarUsuario(
-                nombre,
-                apellido,
-                correo,
-                telefono,
-                nombreUsuario,
-                clave,
-                confirmarClave
-        );
+        try {
+            // El servicio se encarga de validar y registrar
+            return servicio.registrarUsuario(
+                    nombre,
+                    apellido,
+                    correo,
+                    telefono,
+                    nombreUsuario,
+                    clave,
+                    confirmarClave
+            );
+        } catch (Exception e) {
+            // Evita que el formulario explote por excepciones internas
+            System.err.println("[ERROR] No se pudo registrar el usuario: " + e.getMessage());
+            return false;
+        }
     }
-
 }

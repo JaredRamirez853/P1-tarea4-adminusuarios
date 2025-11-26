@@ -32,6 +32,7 @@ public class Login extends javax.swing.JFrame {
         configurarIconoVentana();
         controlador = new controladorLogin();
 
+
     }
     
         /**
@@ -103,10 +104,10 @@ public class Login extends javax.swing.JFrame {
         lblNombreUsuario = new javax.swing.JLabel();
         txtNombreUsuario = new javax.swing.JTextField();
         lblContraseña = new javax.swing.JLabel();
-        txtContraseña = new javax.swing.JTextField();
         btnIniciarSesión = new javax.swing.JButton();
         lblRegistrar = new javax.swing.JLabel();
         btnRegistrarse = new javax.swing.JButton();
+        txtContraseña = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImages(getIconImages());
@@ -148,9 +149,6 @@ public class Login extends javax.swing.JFrame {
         lblContraseña.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblContraseña.setText("Contraseña:");
 
-        txtContraseña.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
-        txtContraseña.addActionListener(this::txtContraseñaActionPerformed);
-
         btnIniciarSesión.setBackground(new java.awt.Color(234, 231, 231));
         btnIniciarSesión.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
         btnIniciarSesión.setText("Iniciar sesión");
@@ -165,6 +163,10 @@ public class Login extends javax.swing.JFrame {
         btnRegistrarse.setText("Registrarse");
         btnRegistrarse.addActionListener(this::btnRegistrarseActionPerformed);
 
+        txtContraseña.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
+        txtContraseña.setText("jPasswordField1");
+        txtContraseña.addActionListener(this::txtContraseñaActionPerformed);
+
         javax.swing.GroupLayout PanelfondoLayout = new javax.swing.GroupLayout(Panelfondo);
         Panelfondo.setLayout(PanelfondoLayout);
         PanelfondoLayout.setHorizontalGroup(
@@ -174,17 +176,18 @@ public class Login extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(PanelfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelfondoLayout.createSequentialGroup()
+                        .addComponent(lblContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(PanelfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelfondoLayout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(btnIniciarSesión))
+                            .addGroup(PanelfondoLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(PanelfondoLayout.createSequentialGroup()
                         .addComponent(lblNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelfondoLayout.createSequentialGroup()
-                        .addComponent(lblContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PanelfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelfondoLayout.createSequentialGroup()
-                                .addComponent(btnIniciarSesión)
-                                .addGap(135, 135, 135)))))
+                        .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(37, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelfondoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -205,9 +208,9 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(lblNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
-                .addGroup(PanelfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PanelfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(txtContraseña))
                 .addGap(39, 39, 39)
                 .addComponent(btnIniciarSesión)
                 .addGap(18, 18, 18)
@@ -304,7 +307,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lblContraseña;
     private javax.swing.JLabel lblNombreUsuario;
     private javax.swing.JLabel lblRegistrar;
-    private javax.swing.JTextField txtContraseña;
+    private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtNombreUsuario;
     // End of variables declaration//GEN-END:variables
 }
