@@ -43,6 +43,7 @@ public class Login extends javax.swing.JFrame {
         btnRegistrarse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImages(getIconImages());
         setResizable(false);
 
         Panelfondo.setBackground(new java.awt.Color(255, 255, 255));
@@ -127,7 +128,7 @@ public class Login extends javax.swing.JFrame {
                         .addGap(76, 76, 76))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelfondoLayout.createSequentialGroup()
                         .addComponent(btnRegistrarse)
-                        .addGap(178, 178, 178))))
+                        .addGap(181, 181, 181))))
         );
         PanelfondoLayout.setVerticalGroup(
             PanelfondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +148,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(lblRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegistrarse)
-                .addGap(0, 61, Short.MAX_VALUE))
+                .addGap(0, 80, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,7 +171,13 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIniciarSesiónActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
-        // TODO add your handling code here:
+        // Crear el formulario Registrar
+        Registrar ventanaRegistro = new Registrar();
+        ventanaRegistro.setVisible(true);
+        ventanaRegistro.setLocationRelativeTo(null); // Centrar ventana
+
+        // Cerrar ventana de Login
+        this.dispose();
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed
